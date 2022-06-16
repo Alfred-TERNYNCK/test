@@ -20,8 +20,9 @@ typedef struct fasta_s {
 void flag_h(void);
 int option(int ac, char **av, fasta_t *p);
 char *my_strcapitalize(char *str);
-char *open_file(char *str);
 int flag_1(fasta_t *p);
+int flag_2(fasta_t *p);
+int flag_3(fasta_t *p);
 int char_list(char c);
 
 #endif

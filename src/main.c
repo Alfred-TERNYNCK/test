@@ -6,10 +6,9 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/my.h"
 #include "../include/fasta.h"
-
-#include <stdio.h>
 
 int main (int ac, char **av)
 {
