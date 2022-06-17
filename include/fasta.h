@@ -24,5 +24,7 @@ int flag_1(fasta_t *p);
 int flag_2(fasta_t *p);
 int flag_3(fasta_t *p);
 int char_list(char c);
+int flag_word(fasta_t *p, int i);
+char **str_to_word_tab(char *str, char *delim);
 
 #endif

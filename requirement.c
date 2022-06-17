@@ -8,17 +8,26 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+char already_char(char c)
+{
+    if (c >= 'a' && c <= 'z')
+        return (c - 32);
+    if (c >= 'A' && c <= 'Z')
+        return c;
+}
+
 char *my_strcapitalize_synthesis(char *str)
 {
     int i = 0;
- 
-    if (str[0] >= 'a' && str[0] <= 'z')
-        str[0] = str[0] - 32;
 
+    if (str == NULL)
+        return (NULL);
+ 
     while (str[i] != '\0') {
-        if (str[i] >= 'a' && str[i] <= 'z' && (str[i - 1] == ' ') && str[i - 1] == '-' || str[i - 1] == '+')
-            str[i] = str[i] - 32;
-        i++;
+        if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
+            if ((str[i - 1] < 48 || str[i - 1] > 57) && (str[i - 1] < 97 ||
+            str[i] > 122) && (str[i - 1] < 65 || str[i - 1] > 90))
+                str[i] = char_cap(str[i]);
     }
     return (str);
 }

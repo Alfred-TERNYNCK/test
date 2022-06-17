@@ -9,16 +9,69 @@
 #include "../include/my.h"
 #include "../include/fasta.h"
 
-int char_list(char c)
-{
-    char *list = "ATGCN";
+// int my_strlen_tab(char *str, char *delim)
+// {
+//    int i = 0;
+//    int j = 0;
+//    int compt = 0;
 
-    for (int i = 0; list[i] != '\0'; i++) {
-        if (c == list[i])
-            return 1;
-    }
-    return 0;
-}
+//    while (str[i] != '\0') {
+//        if (str[i] == delim[j]) {
+//            j++;
+//            if (delim[j] == '\0') {
+//                compt++;
+//                j = 0;
+//            }
+//        }
+//        i++;
+//    }
+//    return compt;
+// }
+
+// char **str_to_word_tab(char *str, char *delim)
+// {
+//     char **tab = NULL;
+//     int i = 0;
+//     int j = 0;
+//     int k = 0;
+//     int l = 0;
+
+//     tab = malloc(sizeof(char *) * (my_strlen_tab(str, delim) + 1));
+//     if (tab == NULL)
+//         return (NULL);
+//     for (i = 0; str[i] != '\0'; i++) {
+//         if (str[i] == delim[0]) {
+//             tab[j] = malloc(sizeof(char) * (k + 1));
+//             if (tab[j] == NULL)
+//                 return (NULL);
+//             for (l = 0; l < k; l++)
+//                 tab[j][l] = str[i - k + l];
+//             tab[j][l] = '\0';
+//             j++;
+//             k = 0;
+//         }
+//         k++;
+//     }
+//     tab[j] = malloc(sizeof(char) * (k + 1));
+//     if (tab[j] == NULL)
+//         return (NULL);
+//     for (l = 0; l < k; l++)
+//         tab[j][l] = str[i - k + l];
+//     tab[j][l] = '\0';
+//     return (tab);
+// }
+
+
+// int char_list(char c)
+// {
+//     char *list = "ATGCN";
+
+//     for (int i = 0; list[i] != '\0'; i++) {
+//         if (c == list[i])
+//             return 1;
+//     }
+//     return 0;
+// }
 
 char *my_strcapitalize_synthesis(char *str)
 {
@@ -44,7 +97,6 @@ int read_file(fasta_t *p)
             line[strlen(line) - 1] = '\0';
         }
         p->tab[i] = strdup(line);
-        printf("%s", p->tab[i]);
         i++;
     }
     p->tab[i] = NULL;
@@ -70,6 +122,18 @@ int option(int ac, char **av, fasta_t *p)
         flag_3(p);
         return 0;
     }
+    if (strcmp(av[1], "4") == 0) {
+        // read_file(p);
+        // flag_4(p);
+        return 0;
+    }
+    if (strcmp(av[1], "5") == 0) {
+        // read_file(p);
+        // flag_5(p);
+        return 0;
+    }
+    if (av[2] != "<" || av[3] != "<")
+        return 1;
     else
         return 1;
 }

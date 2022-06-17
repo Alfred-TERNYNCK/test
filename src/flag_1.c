@@ -12,6 +12,7 @@
 
 int flag_1(fasta_t *p)
 {
+    char **tab_temp = NULL;
     int j = 0;
     int compt = 0;
     int len = 0;
@@ -20,17 +21,16 @@ int flag_1(fasta_t *p)
         if (p->tab[i][j] == '>') {
             if (compt == 1)
                 printf("\n");
-            printf("%s", p->tab[i]);
+            printf("%s\n", p->tab[i]);
             compt ++;
             i++;
         }
-        if (p->tab[i - 1][0] == '>')
-            printf("\n");
         for (int j = 0; p->tab[i][j] != '\0'; j++) {
             if (p->tab[i][j] >= 'a' && p->tab[i][j] <= 'z') {
                 p->tab[i][j] = p->tab[i][j] - 32;
             }
             len = strlen(p->tab[i]);
+            compt = 1;
             if (p->tab[i][j] == ' ' || p->tab[i][j] == 'R' || p->tab[i][j] == 'D') {
 			    for(int z = j; z < len; z++)
 				    p->tab[i][z] = p->tab[i][z + 1];
