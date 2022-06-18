@@ -61,7 +61,6 @@
 //     return (tab);
 // }
 
-
 // int char_list(char c)
 // {
 //     char *list = "ATGCN";
@@ -88,7 +87,7 @@ char *my_strcapitalize_synthesis(char *str)
 int read_file(fasta_t *p)
 {
     char *line = NULL;
-    p->tab = malloc(sizeof(char) * 30000);
+    p->tab = malloc(sizeof(char *) * 30000);
     size_t len = 0;
     int i = 0;
 
@@ -105,7 +104,7 @@ int read_file(fasta_t *p)
 
 int option(int ac, char **av, fasta_t *p)
 {
-    if (ac < 2)
+    if (ac == 3)
         return 1;
     if (strcmp(av[1], "1") == 0) {
         read_file(p);
@@ -132,8 +131,6 @@ int option(int ac, char **av, fasta_t *p)
         // flag_5(p);
         return 0;
     }
-    if (av[2] != "<" || av[3] != "<")
-        return 1;
     else
         return 1;
 }

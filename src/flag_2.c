@@ -32,7 +32,8 @@ int flag_2(fasta_t *p)
             if (p->tab[i][j] == 'T')
                 p->tab[i][j] = 'U';
             len = strlen(p->tab[i]);
-            if (p->tab[i][j] == ' ' || p->tab[i][j] == 'R' || p->tab[i][j] == 'D') {
+            if (p->tab[i][j] == ' ' || p->tab[i][j] == 'R' || p->tab[i][j] == 'D' ||
+            p->tab[i][j] == '=' || p->tab[i][j] == 39) {
                 for(int z = j; z < len; z++)
                     p->tab[i][z] = p->tab[i][z + 1];
                 len--;

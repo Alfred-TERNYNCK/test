@@ -27,7 +27,7 @@ char *my_strcapitalize_synthesis(char *str)
         if ((str[i] >= 65 && str[i] <= 90) || (str[i] >= 97 && str[i] <= 122))
             if ((str[i - 1] < 48 || str[i - 1] > 57) && (str[i - 1] < 97 ||
             str[i] > 122) && (str[i - 1] < 65 || str[i - 1] > 90))
-                str[i] = char_cap(str[i]);
+                str[i] = already_char(str[i]);
     }
     return (str);
 }
