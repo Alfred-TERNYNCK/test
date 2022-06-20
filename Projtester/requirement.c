@@ -27,12 +27,7 @@ void my_ps_synthesis(void)
         return;
 	} else if (pid == 0) {
         execve("/bin/ps", NULL, NULL);
-	}
-    while ((wpid = wait(&status)) > 0);
-}
-
-int main()
-{
-    my_ps_synthesis();
-    return (0);
+	} else {
+        while ((wpid = wait(&status)) > 0);
+    }
 }
