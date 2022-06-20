@@ -19,52 +19,102 @@
 #include "../include/my.h"
 #include "../include/proj.h"
 
-// open directory
-DIR *open_dir(char *dir)
+//my_strlen_tab
+int my_strlen_tab(char **tab)
 {
-    DIR *dir_ptr = opendir(dir);
-    if (dir_ptr == NULL) {
-        my_putstr("Error: cannot open directory\n");
-        return (NULL);
-    }
-    return (dir_ptr);
+    int i = 0;
+
+    while (tab[i] != NULL)
+        i++;
+    return (i);
 }
 
-// print all files in directory
-void print_files(DIR *dir_ptr, char *pass, char **av)
+// str_to_word_tab
+char **str_to_word_tab(char *str)
 {
-    struct dirent *entry;
-    int i = 1;
+    char **tab = malloc(sizeof(char *) * (my_strlen_tab(str) + 1));
+    int i = 0;
+    int j = 0;
 
-    while ((entry = readdir(dir_ptr)) != NULL) {
-        if (entry->d_name[0] != '.') {
-            printf("-----");
-            printf("%s\n", entry->d_name);
-            pass = av[i];
+    while (str[i] != '\0') {
+        if (str[i] == ' ' || str[i] == '\t') {
+            tab[j] = malloc(sizeof(char) * (my_strlen(str) + 1));
             i++;
-            if (entry->d_type == DT_DIR)
-                print_files(dir_ptr, pass, av); // str pass
+            j++;
+        } else {
+            tab[j] = malloc(sizeof(char) * (my_strlen(str) + 1));
+            while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0') {
+                tab[j][i] = str[i];
+                i++;
+            }
+            tab[j][i] = '\0';
+            j++;
+        }
+    }
+    tab[j] = NULL;
+    return (tab);
+}
+
+void sort_file(char **file)
+{
+    int i = 0;
+    int j = 0;
+    char *tmp = NULL;
+
+    for (i = 0; file[i] != NULL; i++) {
+        for (j = i + 1; file[j] != NULL; j++) {
+            if (my_strcmp(file[i], file[j]) > 0) {
+                tmp = file[i];
+                file[i] = file[j];
+                file[j] = tmp;
+            }
         }
     }
 }
 
-int main (int ac, char **av)
+void print_listes(char *elem, int i)
 {
-    struct proj_t *proj = malloc(sizeof(proj_t));
-    DIR *dir_ptr = NULL;
-    int i = 1;
-    char *pass = av[i];
+    DIR *dir;
+    struct dirent *entry;
+    int x = 0;
+    char **stock_file = NULL;
 
-    for (int i = 0; av[1][i]; i++)
-        if (av[1][i] != '.' && av[1][i] != '/')
-            printf("%c", av[1][i]);
-        printf("\n");
+    // stock_file = str_to_word_tab(elem);
+    // sort_file(stock_file);
+
+    if (!(dir = opendir(elem)))
+        return;
+    while ((entry = readdir(dir)) != NULL) {
+        if (entry->d_type == DT_DIR) {
+            char path[1024];
+            if (strcmp(entry->d_name, ".") == 0 ||
+            strcmp(entry->d_name, "..") == 0)
+                continue;
+            sprintf(path, "%s/%s", elem, entry->d_name);
+            for (x = i ;x > 0; x--)
+                printf("-");
+            printf("%*s%s\n", 0, "", entry->d_name);
+            print_listes(path, i + 5);
+        } else {
+            for (x = i ;x > 0; x--)
+                printf("-");
+            printf("%*s%s\n", 0, "", entry->d_name);
+        }
+    }
+    closedir(dir);
+}
+
+int main(int ac, char **av)
+{
+    int i = 5;
     if (ac == 1) {
         flag_h();
         return 0;
-    } else {
-        dir_ptr = open_dir(av[1]);
-        print_files(dir_ptr, pass, av);
     }
+    for (int i = 0; av[1][i]; i++)
+        if (av[1][i] != '.' && av[1][i] != '/')
+            printf("%c", av[1][i]);
+    printf("\n");
+    print_listes(av[1], i);
     return 0;
 }

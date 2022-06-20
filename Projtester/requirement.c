@@ -19,15 +19,14 @@
 
 void my_ps_synthesis(void)
 {
-	pid_t pid = fork();
+    pid_t pid = fork();
     pid_t wpid;
     int status = 0;
 
-	if (pid == -1) {
+    if (pid == -1)
         return;
-	} else if (pid == 0) {
+    else if (pid == 0)
         execve("/bin/ps", NULL, NULL);
-	} else {
+    else
         while ((wpid = wait(&status)) > 0);
-    }
 }
