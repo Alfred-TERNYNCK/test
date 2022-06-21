@@ -20,13 +20,12 @@
 void my_ps_synthesis(void)
 {
     pid_t pid = fork();
-    pid_t wpid;
-    int status = 0;
+    char *av[2] = {"ps", NULL};
 
     if (pid == -1)
         return;
     else if (pid == 0)
-        execve("/bin/ps", NULL, NULL);
-    else
-        while ((wpid = wait(&status)) > 0);
+        execv("/bin/ps", av);
+    else if (pid > 0)
+        wait(NULL);
 }

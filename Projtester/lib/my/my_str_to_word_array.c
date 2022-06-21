@@ -28,14 +28,14 @@ int char_count(char *str, int i)
 int word_count(char *str)
 {
     int i = 0;
-    int k = 0;
+    int j = 0;
 
     while (str[i] != '\0') {
         if (i > 0 && check_alpha(str[i]) == 0 && check_alpha(str[i - 1]) == 1)
-            k++;
+            j++;
         i++;
     }
-    return k;
+    return j;
 }
 
 void check_loop(int *i, int *j, int *k, char const *str)

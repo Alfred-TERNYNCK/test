@@ -13,6 +13,8 @@ RM		= rm -f
 
 SRC		= src/main.c \
 		src/print_flag_h.c \
+		src/print_arg.c \
+		src/print_arg_2.c \
 		
 
 OBJ		= $(SRC:.c=.o)
