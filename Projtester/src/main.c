@@ -19,102 +19,82 @@
 #include "../include/my.h"
 #include "../include/proj.h"
 
-//my_strlen_tab
-int my_strlen_tab(char **tab)
+int first_step(char **av)
+{
+    int i = 5;
+    char **tab = my_str_to_word_array(av[1]);
+    char *elem = av[1];
+    for (int j = 0; tab[j] != NULL; j++)
+    print_listes(elem, i);
+    return 0;
+}
+
+int tablen(char **tab)
 {
     int i = 0;
 
     while (tab[i] != NULL)
         i++;
-    return (i);
+    return i - 1;
 }
 
-// str_to_word_tab
-char **str_to_word_tab(char *str)
+void display_name(int i, struct dirent *dir)
 {
-    char **tab = malloc(sizeof(char *) * (my_strlen_tab(str) + 1));
-    int i = 0;
-    int j = 0;
-
-    while (str[i] != '\0') {
-        if (str[i] == ' ' || str[i] == '\t') {
-            tab[j] = malloc(sizeof(char) * (my_strlen(str) + 1));
-            i++;
-            j++;
-        } else {
-            tab[j] = malloc(sizeof(char) * (my_strlen(str) + 1));
-            while (str[i] != ' ' && str[i] != '\t' && str[i] != '\0') {
-                tab[j][i] = str[i];
-                i++;
-            }
-            tab[j][i] = '\0';
-            j++;
-        }
-    }
-    tab[j] = NULL;
-    return (tab);
-}
-
-void sort_file(char **file)
-{
-    int i = 0;
-    int j = 0;
-    char *tmp = NULL;
-
-    for (i = 0; file[i] != NULL; i++) {
-        for (j = i + 1; file[j] != NULL; j++) {
-            if (my_strcmp(file[i], file[j]) > 0) {
-                tmp = file[i];
-                file[i] = file[j];
-                file[j] = tmp;
-            }
-        }
-    }
+    for (int compt = 0; compt < i; compt++)
+        printf("-");
+    printf("%s\n", dir->d_name);
 }
 
 void print_listes(char *elem, int i)
 {
-    DIR *dir;
-    struct dirent *entry;
-    int x = 0;
-    char **stock_file = NULL;
+    struct dirent **dir_tab;
+    char *d_path;
+    int n = scandir(elem, &dir_tab, 0, alphasort);
+    int j = 0;
 
-    // stock_file = str_to_word_tab(elem);
-    // sort_file(stock_file);
-
-    if (!(dir = opendir(elem)))
-        return;
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_type == DT_DIR) {
-            char path[1024];
-            if (strcmp(entry->d_name, ".") == 0 ||
-            strcmp(entry->d_name, "..") == 0)
-                continue;
-            sprintf(path, "%s/%s", elem, entry->d_name);
-            for (x = i ;x > 0; x--)
-                printf("-");
-            printf("%*s%s\n", 0, "", entry->d_name);
-            print_listes(path, i + 5);
-        } else {
-            for (x = i ;x > 0; x--)
-                printf("-");
-            printf("%*s%s\n", 0, "", entry->d_name);
+    for (int j = 0; j != n; j++) {
+        if (dir_tab[j]-> d_type != DT_DIR)
+            display_name(i, dir_tab[j]);
+        else if (dir_tab[j]-> d_type == DT_DIR &&
+        strncmp(dir_tab[j]->d_name, ".", 1)) {
+            display_name(i, dir_tab[j]);
+            d_path = malloc(sizeof(char) *
+            (strlen(elem) + strlen(dir_tab[j]->d_name)) + 2);
+            sprintf(d_path, "%s/%s", elem, dir_tab[j]->d_name);
+            print_listes(d_path, i + 5);
+            free(d_path);
         }
     }
-    closedir(dir);
+}
+
+int error_case(char **av)
+{
+    struct dirent *entry;
+    DIR *dir = opendir(av[1]);
+
+    if (dir == NULL)
+        return 1;
+    if ((entry = readdir(dir)) == NULL)
+        return 1;
+    else
+        return 0;
 }
 
 int main(int ac, char **av)
 {
-    int i = 5;
+    int z = 5;
     if (ac == 1) {
         flag_h();
         return 0;
     }
+    else if (av[1] == NULL)
+        return 84;
+    if (error_case(av) == 1)
+        return 84;
     for (int i = 0; av[1][i]; i++)
         if (av[1][i] != '.' && av[1][i] != '/')
             printf("%c", av[1][i]);
     printf("\n");
-    print_listes(av[1], i);
+    first_step(av);
     return 0;
 }

@@ -18,5 +18,6 @@ typedef struct proj_s {
 } proj_t;
 
 void flag_h(void);
+void print_listes(char *elem, int i);
 
 #endif
