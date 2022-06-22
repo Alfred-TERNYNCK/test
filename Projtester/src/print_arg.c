@@ -65,9 +65,9 @@ void print_listes(char *elem, int i)
     int j = 0;
 
     for (int j = 0; j != n; j++) {
-        if (dir_tab[j]->d_type != DT_DIR)
+        if (dir_tab[j]-> d_type != DT_DIR)
             display_name(i, dir_tab[j]);
-        else if (dir_tab[j]->d_type == DT_DIR &&
+        else if (dir_tab[j]-> d_type == DT_DIR &&
         strncmp(dir_tab[j]->d_name, ".", 1)) {
             display_name(i, dir_tab[j]);
             dirent_p = malloc(sizeof(char) *

@@ -22,10 +22,15 @@ void print_listes(char *elem, int i);
 void print_title(char **av);
 void print_directory(char **av, int i);
 void print_listes(char *elem, int i);
+int first_step(char **av);
 int tablen(char **tab);
 
-int first_step_2(char **av);
+void print_title_2(char **av);
+void print_title_2_2(char **av);
 void print_listes_2(char *elem, int i);
+int first_step_2(char **av);
+void backup(void);
 
+void flag_cat(char **av);
 
 #endif

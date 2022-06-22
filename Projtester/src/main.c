@@ -55,13 +55,18 @@ int main(int ac, char **av)
     }
     if (error_case(av) == 1)
         return 84;
-    if (ac == 2) {
+    if (ac == 2 && av[2] == NULL) {
         print_title(av);
         first_step(av);
         return 0;
     }
-    if (ac == 3) {
-        first_step_2(av);
+    if (ac == 3 && strcmp(av[2], "echo") == 0) {
+        backup();
+        //first_step_2(av);
+        return 0;
+    }
+    if (ac == 3 && strcmp(av[2], "cat") == 0) {
+        flag_cat(av);
         return 0;
     }
     return 0;
