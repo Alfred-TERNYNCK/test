@@ -50,7 +50,7 @@ void print_title(char **av)
     }
 }
 
-void display_name(int i, struct dirent *dir)
+void print_name(int i, struct dirent *dir)
 {
     for (int compt = 0; compt < i; compt++)
         printf("-");
@@ -66,10 +66,10 @@ void print_listes(char *elem, int i)
 
     for (int j = 0; j != n; j++) {
         if (dir_tab[j]-> d_type != DT_DIR)
-            display_name(i, dir_tab[j]);
+            print_name(i, dir_tab[j]);
         else if (dir_tab[j]-> d_type == DT_DIR &&
         strncmp(dir_tab[j]->d_name, ".", 1)) {
-            display_name(i, dir_tab[j]);
+            print_name(i, dir_tab[j]);
             dirent_p = malloc(sizeof(char) *
             (strlen(elem) + strlen(dir_tab[j]->d_name)) + 2);
             sprintf(dirent_p, "%s/%s", elem, dir_tab[j]->d_name);

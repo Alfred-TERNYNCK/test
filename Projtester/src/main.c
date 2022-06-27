@@ -61,8 +61,8 @@ int main(int ac, char **av)
         return 0;
     }
     if (ac == 3 && strcmp(av[2], "echo") == 0) {
-        backup();
-        //first_step_2(av);
+        //backup();
+        first_step_2(av);
         return 0;
     }
     if (ac == 3 && strcmp(av[2], "cat") == 0) {

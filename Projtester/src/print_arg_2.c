@@ -43,13 +43,13 @@ int first_step_2(char **av)
     return 0;
 }
 
-char *display_name_directory(struct dirent *dir)
+char *print_directory_2(struct dirent *dir)
 {
     printf("[%s] ", dir->d_name);
     return dir->d_name;
 }
 
-void display_name_folder(struct dirent *dir)
+void print_folder_2(struct dirent *dir)
 {
     char *str = NULL;
     printf("%s :%s\n", dir->d_name, str);
@@ -66,10 +66,10 @@ void print_listes_2(char *elem, int i)
 
     for (int j = 0; j != n; j++) {
         if (dir_tab[j]->d_type != DT_DIR)
-            display_name_folder(dir_tab[j]);
+            print_folder_2(dir_tab[j]);
         else if (dir_tab[j]->d_type == DT_DIR &&
         strncmp(dir_tab[j]->d_name, ".", 1)) {
-            display_name_directory(dir_tab[j]);
+            print_directory_2(dir_tab[j]);
             dirent_p = malloc(sizeof(char) *
             (strlen(elem) + strlen(dir_tab[j]->d_name)) + 2);
             sprintf(dirent_p, "%s/%s", elem, dir_tab[j]->d_name);

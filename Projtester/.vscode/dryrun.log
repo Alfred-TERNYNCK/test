@@ -1,0 +1,11 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/crackers/Enzo/Projtester'
+gcc -g   -c -o src/main.o src/main.c
+gcc -g   -c -o src/print_arg_1.o src/print_arg_1.c
+gcc -g   -c -o src/print_arg_2.o src/print_arg_2.c
+gcc -g   -c -o src/print_arg_cat.o src/print_arg_cat.c
+gcc -g   -c -o src/print_flag_h.o src/print_flag_h.c
+make -C lib/my
+gcc src/main.c src/print_arg_1.c src/print_arg_2.c src/print_arg_cat.c src/print_flag_h.c  -o projTester -L lib/my/ -lmy -g
+make: Leaving directory '/home/crackers/Enzo/Projtester'
+ 

@@ -12,10 +12,10 @@ CC		= gcc
 RM		= rm -f
 
 SRC		= src/main.c \
+		src/print_arg_1.c \
+		src/print_arg_2.c \
+		src/print_arg_cat.c \
 		src/print_flag_h.c \
-		src/print_arg.c \
-		src/algo_2.c \
-		src/flag_cat.c \
 		
 
 OBJ		= $(SRC:.c=.o)
